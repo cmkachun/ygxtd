@@ -1,0 +1,16 @@
+#!name=阳光天地
+#!desc=每日00:07自动签到。需先进入小程序“每日签到”或“积分明细”页面抓取凭证。
+#!icon=https://raw.githubusercontent.com/Orz-3/mini/master/Alpha/Sun.png
+#!author=cmkachun
+#!homepage=https://github.com/cmkachun/ygxtd
+#!system=ios
+
+[Script]
+# 自动抓取：模糊匹配该商场所有接口，进入小程序即更新凭证
+http-request ^https?:\/\/a\.china-smartech\.com\/restful\/.* script-path=https://raw.githubusercontent.com/cmkachun/ygxtd/main/zhima.js, requires-body=true, tag=阳光天地参数获取
+
+# 定时任务：每天凌晨 00:07 自动签到
+cron "7 0 * * *" script-path=https://raw.githubusercontent.com/cmkachun/ygxtd/main/zhima.js, tag=阳光天地自动签到
+
+[MITM]
+hostname = a.china-smartech.com
